@@ -1,0 +1,11 @@
+--- a/gluon/main.py
++++ b/gluon/main.py
+@@ -112,7 +112,7 @@
+ regex_client = re.compile('[\w\-:]+(\.[\w\-]+)*\.?')  # ## to account for IPV6
+ 
+ try:
+-    version_info = open(pjoin(global_settings.gluon_parent, 'VERSION'), 'r')
++    version_info = open('/usr/share/web2py/VERSION', 'r')
+     raw_version_string = version_info.read().split()[-1].strip()
+     version_info.close()
+     global_settings.web2py_version = raw_version_string

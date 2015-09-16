@@ -5,3 +5,4 @@ gtk_gui
 avoid_upgrading
 fix_interpreters
 fix_websocket_messaging
+version
