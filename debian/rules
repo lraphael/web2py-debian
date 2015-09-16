@@ -11,7 +11,6 @@ PREFIX = debian/python-web2py/usr/share/web2py
 override_dh_clean:
 	#unset executable permissions in several files:
 	find applications/ -type f -exec chmod -x {} \; 
-	chmod -x gluon/contrib/pyfpdf/template.py
 	chmod -x gluon/contrib/AuthorizeNet.py
 	dh_clean
 	

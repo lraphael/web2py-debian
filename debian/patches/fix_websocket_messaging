@@ -1,0 +1,13 @@
+--- a/gluon/contrib/websocket_messaging.py
++++ b/gluon/contrib/websocket_messaging.py
+@@ -146,8 +146,8 @@
+ 
+ class DistributeHandler(tornado.websocket.WebSocketHandler):
+    
+-   def check_origin(self, origin):
+-      return True
++    def check_origin(self, origin):
++        return True
+ 
+     def open(self, params):
+         group, token, name = params.split('/') + [None, None]

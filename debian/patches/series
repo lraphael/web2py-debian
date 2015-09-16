@@ -1,7 +1,7 @@
 subwsgihandler
 launcher
 desktop_file
-avoid_upgrading
 gtk_gui
+avoid_upgrading
 fix_interpreters
-avoid_write_translations
+fix_websocket_messaging

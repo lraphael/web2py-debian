@@ -1,3 +1,10 @@
+web2py (2.12.3-1) UNRELEASED; urgency=medium
+
+  * New upstream release
+  * Refreshed patches
+
+ -- root <raphael.lechner@gmail.com>  Wed, 16 Sep 2015 02:56:08 +0200
+
 web2py (1.99.7-2) unstable; urgency=low
 
   * Team upload.

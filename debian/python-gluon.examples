@@ -1,9 +1,8 @@
-wsgihandler.py
+handlers/wsgihandler.py
 subwsgihandler.py
 debian/web2py.apache
 debian/web2py.apache-subdir
-router.example.py
-*.yaml 
-routes.example.py
-appengine_config.py
-gaehandler.py
+*.yaml
+applications/welcome/routes.example.py
+examples/appengine_config.example.py
+handlers/gaehandler.py

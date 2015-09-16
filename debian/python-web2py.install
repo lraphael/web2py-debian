@@ -2,7 +2,7 @@ applications/examples/static/images/favicon.png usr/share/pixmaps
 applications usr/share/web2py
 VERSION usr/share/web2py
 web2py.py usr/share/web2py
-splashlogo.gif usr/share/web2py
+extras/icons/splashlogo.gif usr/share/web2py
 web2py usr/bin
 web2py.desktop usr/share/applications
 debian/web2py.xpm usr/share/pixmaps

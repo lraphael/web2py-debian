@@ -1,45 +1,27 @@
-Index: web2py-1.99.4/applications/admin/views/default/site.html
-===================================================================
---- web2py-1.99.4.orig/applications/admin/views/default/site.html	2011-12-14 15:45:47.000000000 +0100
-+++ web2py-1.99.4/applications/admin/views/default/site.html	2011-12-14 18:32:10.695469587 +0100
-@@ -59,14 +59,6 @@
-     {{if is_manager():}}
-     <div class="box">
-       <h3>{{="Version %s.%s.%s (%s) %s" % myversion}}</h3>
--      {{if session.check_version:}}
--      <p id="check_version">
--        {{=T('Checking for upgrades...')}}
--      <script>ajax('{{=URL('check_version')}}',[],'check_version');</script>{{session.check_version=False}}
--      {{else:}}
--      <p id="check_version">
--        {{=button("javascript:ajax('"+URL('check_version')+"',[],'check_version')", T('Check for upgrades'))}}
--      {{pass}}
-       </p>
-       <div class="formfield">
- 	Running on {{=request.env.server_software}}
-Index: web2py-1.99.4/applications/admin/controllers/default.py
-===================================================================
---- web2py-1.99.4.orig/applications/admin/controllers/default.py	2011-12-14 18:31:44.647340425 +0100
-+++ web2py-1.99.4/applications/admin/controllers/default.py	2011-12-14 18:32:15.447493151 +0100
-@@ -14,11 +14,11 @@
- import shutil
- import platform
+--- a/applications/admin/controllers/default.py
++++ b/applications/admin/controllers/default.py
+@@ -32,7 +32,7 @@
  
--if DEMO_MODE and request.function in ['change_password','pack','pack_plugin','upgrade_web2py','uninstall','cleanup','compile_app','remove_compiled_app','delete','delete_plugin','create_file','upload_file','update_languages','reload_routes']:
-+if DEMO_MODE and request.function in ['change_password','pack','pack_plugin','uninstall','cleanup','compile_app','remove_compiled_app','delete','delete_plugin','create_file','upload_file','update_languages','reload_routes']:
-     session.flash = T('disabled in demo mode')
+ 
+ if DEMO_MODE and request.function in ['change_password', 'pack',
+-'pack_custom','pack_plugin', 'upgrade_web2py', 'uninstall',
++'pack_custom','pack_plugin', 'uninstall',
+ 'cleanup', 'compile_app', 'remove_compiled_app', 'delete',
+ 'delete_plugin', 'create_file', 'upload_file', 'update_languages',
+ 'reload_routes', 'git_push', 'git_pull', 'install_plugin']:
+@@ -44,7 +44,7 @@
+     session.flash = T('disabled in GAE mode')
      redirect(URL('site'))
  
--if not is_manager() and request.function in ['change_password','upgrade_web2py']:
+-if not is_manager() and request.function in ['change_password', 'upgrade_web2py']:
 +if not is_manager() and request.function in ['change_password']:
      session.flash = T('disabled in multi user mode')
      redirect(URL('site'))
  
-@@ -69,11 +69,7 @@
-         if verify_password(request.vars.password):
+@@ -124,10 +124,7 @@
              session.authorized = True
              login_record(True)
--
+ 
 -            if CHECK_VERSION:
 -                session.check_version = True
 -            else:
@@ -48,7 +30,7 @@ Index: web2py-1.99.4/applications/admin/controllers/default.py
  
              session.last_time = t0
              if isinstance(send, list):  # ## why does this happen?
-@@ -93,26 +89,6 @@
+@@ -147,25 +144,6 @@
      return dict(send=send)
  
  
@@ -58,39 +40,57 @@ Index: web2py-1.99.4/applications/admin/controllers/default.py
 -    session.forget()
 -    session._unlock(response)
 -
--    new_version, version_number = check_new_version(request.env.web2py_version,
--                                    WEB2PY_VERSION_URL)
+-    new_version, version = check_new_version(request.env.web2py_version,
+-                                             WEB2PY_VERSION_URL)
 -
 -    if new_version == -1:
 -        return A(T('Unable to check for upgrades'), _href=WEB2PY_URL)
 -    elif new_version != True:
 -        return A(T('web2py is up to date'), _href=WEB2PY_URL)
--    elif platform.system().lower() in ('windows','win32','win64') and os.path.exists("web2py.exe"):
--        return SPAN('You should upgrade to version %s' % version_number)
+-    elif platform.system().lower() in ('windows', 'win32', 'win64') and os.path.exists("web2py.exe"):
+-        return SPAN('You should upgrade to %s' % version.split('(')[0])
 -    else:
--        return sp_button(URL('upgrade_web2py'), T('upgrade now')) \
--          + XML(' <strong class="upgrade_version">%s</strong>' % version_number)
+-        return sp_button(URL('upgrade_web2py'), T('upgrade now to %s') % version.split('(')[0])
 -
 -
  def logout():
      """ Logout handler """
      session.authorized = None
-@@ -250,18 +226,6 @@
-         session.flash = T('internal error')
-         redirect(URL('plugin',args=request.args))
+@@ -426,19 +404,6 @@
+     return locals()
+ 
  
 -def upgrade_web2py():
--    if 'upgrade' in request.vars:
+-    dialog = FORM.confirm(T('Upgrade'),
+-                          {T('Cancel'): URL('site')})
+-    if dialog.accepted:
 -        (success, error) = upgrade(request)
 -        if success:
 -            session.flash = T('web2py upgraded; please restart it')
 -        else:
 -            session.flash = T('unable to upgrade because "%s"', error)
 -        redirect(URL('site'))
--    elif 'noupgrade' in request.vars:
--        redirect(URL('site'))
--    return dict()
+-    return dict(dialog=dialog)
+-
 -
  def uninstall():
      app = get_app()
-     if 'delete' in request.vars:
+ 
+--- a/applications/admin/views/default/site.html
++++ b/applications/admin/views/default/site.html
+@@ -81,15 +81,6 @@
+       {{running_on = T("Running on %s", request.env.server_software or 'Unknown')}}
+       ({{="%s, Python %s" % (running_on, myplatform)}})
+     </p>
+-    <p id="check_version" class="row-buttons">
+-      {{if session.check_version:}}
+-        {{=T('Checking for upgrades...')}}
+-        <script>ajax('{{=URL('check_version')}}',[],'check_version');</script>
+-        {{session.check_version=False}}
+-      {{else:}}
+-        {{=button("javascript:ajax('"+URL('check_version')+"',[],'check_version')", T('Check for upgrades'))}}
+-      {{pass}}
+-    </p>
+     {{if session.is_mobile=='auto':}}
+       <p>{{=A(T('Try the mobile interface'),_href=URL('plugin_jqmobile','about'))}}</p>
+     {{pass}}

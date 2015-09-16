@@ -1,7 +1,5 @@
-Index: web2py-1.99.7/gluon/contrib/gtk_presentation.py
-===================================================================
---- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ web2py-1.99.7/gluon/contrib/gtk_presentation.py	2012-03-13 10:23:02.450076782 +0100
+--- /dev/null
++++ b/gluon/contrib/gtk_presentation.py
 @@ -0,0 +1,52 @@
 +#!/usr/bin/env python
 +# -*- coding: utf-8 -*-
@@ -55,13 +53,18 @@ Index: web2py-1.99.7/gluon/contrib/gtk_presentation.py
 +        label.show()
 +        return label        
 +   
-Index: web2py-1.99.7/gluon/widget.py
-===================================================================
---- web2py-1.99.7.orig/gluon/widget.py	2012-03-13 10:21:10.000000000 +0100
-+++ web2py-1.99.7/gluon/widget.py	2012-03-13 10:23:41.987213834 +0100
-@@ -33,6 +33,12 @@
- except:
-     pass
+--- a/gluon/widget.py
++++ b/gluon/widget.py
+@@ -24,12 +24,19 @@
+ import newcron
+ import getpass
+ import gluon.main as main
++import re
+ 
+ from gluon.fileutils import read_file, write_file, create_welcome_w2p
+ from gluon.settings import global_settings
+ from gluon.shell import run, test
+ from gluon.utils import is_valid_ip_address, is_loopback_ip_address, getipaddrinfo
  
 +try:
 +    import gtk
@@ -70,11 +73,11 @@ Index: web2py-1.99.7/gluon/widget.py
 +except:
 +    pass
  
- try:
-     BaseException
-@@ -89,9 +95,296 @@
-     print 'starting browser...'
-     try_start_browser('http://%s:%s' % (ip, port))
+ ProgramName = 'web2py Web Framework'
+ ProgramAuthor = 'Created by Massimo Di Pierro, Copyright 2007-' + str(
+@@ -130,6 +137,294 @@
+         print 'warning: unable to detect your browser'
+ 
  
 +def setup_gtk(*args):
 +    
@@ -100,7 +103,7 @@ Index: web2py-1.99.7/gluon/widget.py
 +            severm = gtk.MenuItem("Server")
 +            severm.set_submenu(servermenu)
 +           
-+            item = lambda(x): try_start_browser(httplog)       
++            item = lambda(x): start_browser(httplog)       
 +            log_item = gtk.MenuItem("View httpserver.log")
 +            log_item .connect("activate", item)
 +            quit_item = gtk.MenuItem("Quit (pid: %i)" % os.getpid())
@@ -120,7 +123,7 @@ Index: web2py-1.99.7/gluon/widget.py
 +            self.menu.append(helpm)
 +            
 +            # Home Page
-+            item = lambda(x): try_start_browser('http://www.web2py.com')
++            item = lambda(x): start_browser('http://www.web2py.com')
 +            home_item= gtk.MenuItem('Home Page')
 +            home_item.connect("activate", item)
 +     
@@ -264,7 +267,7 @@ Index: web2py-1.99.7/gluon/widget.py
 +                    password,
 +                    pid_filename=options.pid_filename,
 +                    log_filename=options.log_filename,
-+                    profiler_filename=options.profiler_filename,
++                    profiler_dir=options.profiler_dir,
 +                    ssl_certificate=options.ssl_certificate,
 +                    ssl_private_key=options.ssl_private_key,
 +                    min_threads=options.minthreads,
@@ -303,7 +306,7 @@ Index: web2py-1.99.7/gluon/widget.py
 +            """ Connect pages """
 +            def get_label(menu_item):
 +                url=menu_item.get_child().get_label()
-+                try_start_browser(url)
++                start_browser(url)
 +                
 +            for arq in os.listdir('applications/'):
 +                if os.path.exists('applications/%s/__init__.py' % arq):
@@ -329,7 +332,7 @@ Index: web2py-1.99.7/gluon/widget.py
 +                gobject.timeout_add(1000, self.update_canvas)
 +                return
 +                
- 
++ 
 +            try:
 +                fp = open('httpserver.log', 'r')
 +                fp.seek(self.t0)
@@ -362,25 +365,19 @@ Index: web2py-1.99.7/gluon/widget.py
 +    options=args[0]
 +    mymain=web2pyGtkDialog(options)
 +    gobject.timeout_add(5000, mymain.show_all)                        
-+  
-+  
- def presentation(root):
--    """ Draw the splash screen """
-+    """ Draw the splash screen Tk"""
++
++
+ class web2pyDialog(object):
+     """ Main window dialog """
  
-     root.withdraw()
+@@ -1187,21 +1482,50 @@
+         sys.exit(1)
  
-@@ -913,18 +1206,44 @@
+     root = None
++    splash = None
  
-     if not options.nogui:
+     if not options.nogui and options.password == '<ask>':
          try:
--            import Tkinter
--            havetk = True
--        except ImportError:
--            logger.warn('GUI not available because Tk library is not installed')
--            havetk = False
--
--        if options.password == '<ask>' and havetk or options.taskbar and havetk:
 +            import gtk
 +            import gobject
 +            import pango
@@ -389,10 +386,17 @@ Index: web2py-1.99.7/gluon/widget.py
 +        except:
 +            logger.warn('Trying Tk GUI interface because gtk is not installed')
 +            havegtk=False
+             import Tkinter
+             havetk = True
              try:
 -                root = Tkinter.Tk()
 -            except:
 -                pass
+-        except (ImportError, OSError):
+-            logger.warn(
+-                'GUI not available because Tk library is not installed')
+-            havetk = False
+-            options.nogui = True
 -
 +                import Tkinter
 +                havetk = True
@@ -425,4 +429,4 @@ Index: web2py-1.99.7/gluon/widget.py
 +    #if tk interface:
      if root:
          root.focus_force()
-         if not options.quiet:
+ 
