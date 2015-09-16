@@ -1,0 +1,52 @@
+#!/usr/bin/make -f
+# -*- makefile -*-
+
+# Uncomment this to turn on verbose mode.
+#export DH_VERBOSE=1
+PREFIX = debian/python-web2py/usr/share/web2py
+
+%:
+	dh $@ --with python2
+
+override_dh_clean:
+	#unset executable permissions in several files:
+	find applications/ -type f -exec chmod -x {} \; 
+	chmod -x gluon/contrib/pyfpdf/template.py
+	chmod -x gluon/contrib/AuthorizeNet.py
+	dh_clean
+	
+override_dh_install:
+	dh_install
+
+	#admin app must be upgraded only via a Debian package:
+	rm -f $(PREFIX)/applications/admin/view/default/upgrade_web2py.html
+
+	# no additional licensing files wanted 
+	find debian/ -name LICENSE -delete
+	find debian/ -name LICENSE.txt -delete	
+	find debian/ -name license.txt -delete
+
+	#created with web2py first run:
+	#touch $(PREFIX)/welcome.w2p	
+	
+	#icon for desktop file:
+	mv debian/python-web2py/usr/share/pixmaps/favicon.png debian/python-web2py/usr/share/pixmaps/web2py.png
+
+	# Remove embedded Javascript libraries
+	find $(PREFIX)/applications -name jquery.js -exec \
+		ln -sf /usr/share/javascript/jquery/jquery.js {} \;
+
+	# Removed embedded Feedparser module
+	# For a Lenny backport, pyshared dir must be changed:
+	#dh_link -p python-gluon /usr/share/python-support/python-feedparser/feedparser.py  usr/share/python-support/python-gluon/gluon/contrib/feedparser.py	
+	dh_link -p python-gluon /usr/share/pyshared/feedparser.py usr/share/python-support/python-gluon/gluon/contrib/feedparser.py	
+		
+override_dh_installman:
+	dh_installman debian/web2py.1 -ppython-web2py
+	
+override_dh_link:
+	#avoid relative links for jquery.js libraries
+	
+
+
+

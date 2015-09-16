@@ -1,0 +1,14 @@
+Index: web2py-1.99.7/gluon/languages.py
+===================================================================
+--- web2py-1.99.7.orig/gluon/languages.py	2012-03-12 12:38:30.378575167 +0100
++++ web2py-1.99.7/gluon/languages.py	2012-03-12 12:48:07.666187086 +0100
+@@ -291,7 +291,8 @@
+         if mt is None:
+             self.t[message] = mt = tokens[0]
+             if self.language_file and not is_gae:
+-                write_dict(self.language_file, self.t)
++                if not "/applications/welcome/" in self.language_file and not "/applications/admin/" in self.language_file:
++                    write_dict(self.language_file, self.t)
+         if symbols or symbols == 0:
+             return mt % symbols
+         return mt

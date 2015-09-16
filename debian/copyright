@@ -1,0 +1,319 @@
+This package was packaged for Debian by:
+José L. Redrejo Rodríguez <jredrejo@debian.org> on
+Sun, 30 Jan 2011 10:32:55 +0000 with the assistance of the Debian Python
+Modules Team <python-modules-team@lists.alioth.debian.org>.
+
+It was downloaded from:
+
+    http://www.web2py.com/examples/default/download
+
+Upstream Author:
+
+    Massimo Di Pierro <mdipierro@cs.depaul.edu>
+
+Copyright:
+
+    Copyright (C) 2007-2011 Massimo Di Pierro
+
+License:
+
+Web2py is Licensed under the LGPL license version 3 
+see "/usr/share/common-licenses/LGPL-3".
+
+
+Some sources include also code files with individual licenses:
+
+Directory gluon/contrib/simplejson/*:
+    Copyright (c) 2006 Bob Ippolito
+    License: MIT
+    The complete text of this license is included below.
+
+File gluon/contrib/rss2.py:
+    This is copyright (c) by Dalke Scientific Software, LLC.
+    License: BSD 
+    The complete text of this license is included below.
+    
+Directory gluon/contrib/markdown/*:
+    Copyright (c) 2008 ActiveState Software Inc.
+    License: MIT
+    The complete text of this license is included below.
+    
+File gluon/contrib/pam.py:
+    Copyright (C) 2007-2009 Chris AtLee <chris@atlee.ca>
+    License: MIT
+    The complete text of this license is included below.
+    
+File gluon/contrib/shell.py:
+    Copyright (C) by Google inc. 
+    License: Apache 2.0
+    See "/usr/share/common-licenses/Apache-2.0"    
+    
+File gluon/contrib/AuthorizeNet.py
+    Copyright (c) 2009-2010 John Conde <john@johnconde.net>
+                            Massimo Di Pierro <mdipierro@cs.depaul.edu>
+    License: GPL-3
+    
+File gluon/contrib/gae_memcache.py:
+    Developed by Robin Bhattacharyya (memecache for GAE)
+    License: GPL-3
+    
+Directory gluon/contrib/memcache/*
+    Copyright (c) Evan Martin <martine@danga.com>
+    License: Python
+    The complete text of this license is included below.
+    
+File gluon/contrib/taskbar_widget.py
+    Copyright (c) 2008 Mark Larsen, Mark Hammond
+    License: Python
+    The complete text of this license is included below.    
+    
+File gluon/contrib/gae_retry.py:
+    Copyright (C)  2009  twitter.com/rcb
+    License: MIT
+    The complete text of this license is included below.
+
+Directory gluon/contrib/gateways/*
+    Copyright (c) 2002, 2003, 2005, 2006 Allan Saddi <allan@saddi.com>
+    
+    Redistribution and use in source and binary forms, with or without
+    modification, are permitted provided that the following conditions
+    are met:
+    1. Redistributions of source code must retain the above copyright
+       notice, this list of conditions and the following disclaimer.
+    2. Redistributions in binary form must reproduce the above copyright
+       notice, this list of conditions and the following disclaimer in the
+       documentation and/or other materials provided with the distribution.
+    
+    THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+    ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+    IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+    ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+    FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+    DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+    OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+    HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+    LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+    OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+    SUCH DAMAGE.
+
+Directory gluon/contrib/markdown/*:
+    Copyright (c) 2007-2008 ActiveState Corp.
+    http://code.google.com/p/python-markdown2/
+    License: MIT
+    The complete text of this license is included below.
+
+Directory gluon/contrib/markmin/*:
+    Copyright (C) 2007-2011 Massimo Di Pierro
+    License: MIT/BSD/GPL
+    The complete text of the MIT license is included below.
+    See the complete text of BSD license below and 
+    "/usr/share/common-licenses/GPL-3" for GPL text
+
+File gluon/contrib/markmin/memdb.py:
+    Copyright (C) 2007-2011 Massimo Di Pierro
+    License: GPL-2
+    See "/usr/share/common-licenses/GPL-2"
+    
+Directory gluon/contrib/pyfpdf/*:
+    Copyright () 2004 Olivier Plathey
+                2005-2006 Max <maxpat78@yahoo.it> 
+                2008-2010 Mariano Reingart <reingart@gmail.com>
+    License: GPL-3
+    See "/usr/share/common-licenses/GPL-3"    
+
+Directory gluon/contrib/pymysql/*:
+    Copyright (c) 2010 PyMySQL contributors
+    License: MIT
+    The complete text of this license is included below.
+
+Directory gluon/contrib/pyrtf/*:
+    Copyright (c) 2004-2010 Simon Cusack <scusack@sourceforge.net>
+                        Grant Edwards <grante@users.sourceforge.net> 
+    Licenses GPL-3 and LGPL-3
+    See "/usr/share/common-licenses/GPL-3" and 
+    "/usr/share/common-licenses/LGPL-3" 
+        
+Directory gluon/contrib/pysimplesoap/*:
+    Copyright (c) 2010 Mariano Reingart <reingart@gmail.com>
+    License: LGPL-3
+    See "/usr/share/common-licenses/LGPL-3"
+        
+File gluon/contrib/spreadsheet.py:
+    Copyright (C) 2007-2011 Massimo Di Pierro
+    License: GPL-2
+    See "/usr/share/common-licenses/GPL-2"
+
+File gluon/rocket.py
+    Copyright (c) 2010 Timothy Farrell
+    This file is part of the https://launchpad.net/rocket project
+    License: MIT
+    The complete text of this license is included below.
+    
+Directory applications/admin/static/eamy/*:
+    Copyright (c) 2007-2008 Petr Krontorád, April-Child.com
+    License: MIT
+    The complete text of this license is included below.
+
+Files applications/examples/static/js/calendar.js, 
+applications/admin/static/js/calendar.js:
+    Copyright (c) 2002-2005 Mihai Bazon
+    License: LGPL-2
+    See "/usr/share/common-licenses/LGPL-2"
+    
+File applications/admin/static/js/jquery.timeentry.js:
+    Copyright (c) 2007-2010 Keith Wood <kbwood@iinet.com.au>
+    http://keith-wood.name/timeEntry.html
+    Dual-licensed under GPL-2 and MIT licenses.
+    See "/usr/share/common-licenses/GPL-2" and the MIT text included
+    below.
+    
+File applications/admin/static/js/jqueryMultiSelect.js:
+    Copyright (c) 2011 A Beautiful Site, LLC.
+    http://abeautifulsite.net/blog/2011/01/jquery-selectbox-plugin/
+    Dual-licensed under GPL-2 and MIT licenses.
+    See "/usr/share/common-licenses/GPL-2" and the MIT text included
+    below.
+    
+File applications/admin/static/js/jquery.hotkeys.js:
+    Copyright (c) 2007-2008 Tzury Bar Yochay <tzury.by@gmail.com>
+    Dual-licensed under GPL-2 and MIT licenses.
+    See "/usr/share/common-licenses/GPL-2" and the MIT text included
+    below.
+        
+File applications/welcome/static/js/dd_belatedpng.js:
+    Copyright (c)  Drew Dille <drew.diller@gmail.com>
+    License: MIT
+    The complete text of this license is included below.
+    
+File applications/welcome/static/js/modernizr-1.6.min.js:
+    Copyright (c) 2009–2010 Faruk Ateş
+    http://www.modernizr.com/license/
+    Dual-licensed under the BSD or MIT licenses.
+    See BSD and MIT licences texts included below.
+
+File applications/welcome/static/js/superfish.js:
+    Copyright (c) 2008 Joel Birch
+    Dual-licensed under GPL-2 and MIT licenses.
+    See "/usr/share/common-licenses/GPL-2" and the MIT text included
+    below.
+      
+Directory applications/admin/static/edit_area/plugins/zencoding/*:
+    Copyright (c) 2010-2011 Sergey Chikuyonok <serge.che@gmail.com>
+    http://code.google.com/p/zen-coding/
+    License: MIT
+    The complete text of this license is included below.
+        
+Directory applications/admin/static/edit_area/*:
+    Copyright (c) 2008, Christophe Dolivet
+    Licensed under Apache, BSD and LGPL-2 
+    See license text of BSD below,
+    "/usr/share/common-licenses/Apache-2" and   
+    "/usr/share/common-licenses/LGPL-2"
+
+
+
+The Debian packaging is:
+    Copyright (C) 2011 José L. Redrejo Rodríguez <jredrejo@debian.org>
+and is licensed under the GPL version 3,
+see "/usr/share/common-licenses/GPL-3".
+
+
+-----------------------------------------------------------------------
+                          MIT LICENSE
+
+    Permission is hereby granted, free of charge, to any person obtaining a copy of
+    this software and associated documentation files (the "Software"), to deal in
+    the Software without restriction, including without limitation the rights to
+    use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
+    of the Software, and to permit persons to whom the Software is furnished to do
+    so, subject to the following conditions:
+
+    The above copyright notice and this permission notice shall be included in all
+    copies or substantial portions of the Software.
+
+    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+    SOFTWARE.
+
+
+-----------------------------------------------------------------------
+                          BSD LICENSE
+                          
+	Redistribution and use in source and binary forms, with or without
+	modification, are permitted provided that the following conditions
+	are met:
+	1. Redistributions of source code must retain the above copyright
+	   notice, this list of conditions and the following disclaimer.
+	2. Redistributions in binary form must reproduce the above copyright
+	   notice, this list of conditions and the following disclaimer in the
+	   documentation and/or other materials provided with the distribution.
+	3. Neither the name of the University nor the names of its contributors
+	   may be used to endorse or promote products derived from this software
+	   without specific prior written permission.
+
+	THIS SOFTWARE IS PROVIDED BY THE REGENTS AND CONTRIBUTORS ``AS IS'' AND
+	ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+	IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+	ARE DISCLAIMED.  IN NO EVENT SHALL THE REGENTS OR CONTRIBUTORS BE LIABLE
+	FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+	DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+	OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+	HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+	LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+	OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+	SUCH DAMAGE.
+
+
+-----------------------------------------------------------------------
+    PYTHON SOFTWARE FOUNDATION LICENSE VERSION 2
+
+
+    1. This LICENSE AGREEMENT is between the Python Software Foundation
+    ("PSF"), and the Individual or Organization ("Licensee") accessing and
+    otherwise using this software ("Python") in source or binary form and
+    its associated documentation.
+
+    2. Subject to the terms and conditions of this License Agreement, PSF hereby
+    grants Licensee a nonexclusive, royalty-free, world-wide license to reproduce,
+    analyze, test, perform and/or display publicly, prepare derivative works,
+    distribute, and otherwise use Python alone or in any derivative version,
+    provided, however, that PSF's License Agreement and PSF's notice of copyright,
+    i.e., "Copyright (c) 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010
+    Python Software Foundation; All Rights Reserved" are retained in Python alone or
+    in any derivative version prepared by Licensee.
+
+    3. In the event Licensee prepares a derivative work that is based on
+    or incorporates Python or any part thereof, and wants to make
+    the derivative work available to others as provided herein, then
+    Licensee hereby agrees to include in any such work a brief summary of
+    the changes made to Python.
+
+    4. PSF is making Python available to Licensee on an "AS IS"
+    basis.  PSF MAKES NO REPRESENTATIONS OR WARRANTIES, EXPRESS OR
+    IMPLIED.  BY WAY OF EXAMPLE, BUT NOT LIMITATION, PSF MAKES NO AND
+    DISCLAIMS ANY REPRESENTATION OR WARRANTY OF MERCHANTABILITY OR FITNESS
+    FOR ANY PARTICULAR PURPOSE OR THAT THE USE OF PYTHON WILL NOT
+    INFRINGE ANY THIRD PARTY RIGHTS.
+
+    5. PSF SHALL NOT BE LIABLE TO LICENSEE OR ANY OTHER USERS OF PYTHON
+    FOR ANY INCIDENTAL, SPECIAL, OR CONSEQUENTIAL DAMAGES OR LOSS AS
+    A RESULT OF MODIFYING, DISTRIBUTING, OR OTHERWISE USING PYTHON,
+    OR ANY DERIVATIVE THEREOF, EVEN IF ADVISED OF THE POSSIBILITY THEREOF.
+
+    6. This License Agreement will automatically terminate upon a material
+    breach of its terms and conditions.
+
+    7. Nothing in this License Agreement shall be deemed to create any
+    relationship of agency, partnership, or joint venture between PSF and
+    Licensee.  This License Agreement does not grant permission to use PSF
+    trademarks or trade name in a trademark sense to endorse or promote
+    products or services of Licensee, or any third party.
+
+    8. By copying, installing or otherwise using Python, Licensee
+    agrees to be bound by the terms and conditions of this License
+    Agreement.
+

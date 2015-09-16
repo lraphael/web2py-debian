@@ -1,0 +1,16 @@
+Index: web2py-1.92.1/web2py.desktop
+===================================================================
+--- /dev/null	1970-01-01 00:00:00.000000000 +0000
++++ web2py-1.92.1/web2py.desktop	2011-02-20 18:04:52.000000000 +0000
+@@ -0,0 +1,11 @@
++[Desktop Entry]
++Encoding=UTF-8
++Name=web2py
++Comment=Enterprise web development framework using Python
++Comment[es]=Entorno empresarial de desarrollo web con Python
++Exec=web2py %U
++Icon=/usr/share/pixmaps/web2py.png
++Terminal=false
++Type=Application
++Categories=Development;
++StartupNotify=false

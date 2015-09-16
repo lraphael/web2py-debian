@@ -1,0 +1,6 @@
+?package(python-web2py):needs="X11" section="Applications/Web Development"\
+        title="web2py"\
+        icon="/usr/share/pixmaps/web2py.xpm"\
+        command="/usr/bin/web2py"
+
+

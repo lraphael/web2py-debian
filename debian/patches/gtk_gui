@@ -1,0 +1,428 @@
+Index: web2py-1.99.7/gluon/contrib/gtk_presentation.py
+===================================================================
+--- /dev/null	1970-01-01 00:00:00.000000000 +0000
++++ web2py-1.99.7/gluon/contrib/gtk_presentation.py	2012-03-13 10:23:02.450076782 +0100
+@@ -0,0 +1,52 @@
++#!/usr/bin/env python
++# -*- coding: utf-8 -*-
++"""
++This file is part of the web2py Web Framework
++Copyright 2011 José L. Redrejo Rodríguez <jredrejo@debian.org>
++License: LGPLv3 (http://www.gnu.org/licenses/lgpl.html)
++
++It creates a splash screen for web2py using gtk libraries
++"""
++import gtk
++import pango
++
++class Presentation(gtk.Window):
++
++    def __init__(self,logo,program_name,author,version):
++        """ Draw the splash screen using gtk"""    
++        super(Presentation, self).__init__(gtk.WINDOW_POPUP)
++        self.set_position(gtk.WIN_POS_CENTER) 
++        self.set_modal(True)
++        self.set_size_request(500,300)
++        self.set_title('web2py')
++        self.AppPaintable=True	
++
++        image = gtk.Image()
++        image.set_from_file(logo)
++
++        box=gtk.VBox()
++        box.pack_start(image,False,False, 0)
++        self.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse("white"))    
++        self.add(box)
++        image.show()
++        box.show()
++        
++        box.pack_start(self.add_label('Welcome to...'),True,False, 0)
++        box.pack_start(self.add_label(program_name, 18,pango.AttrForeground(65535, 23807, 8191, 0, 31),True),True,False, 0)
++        box.pack_start(self.add_label(author),True,False, 0)
++        box.pack_start(self.add_label(version),True,False, 0)    
++        
++        self.show()
++       
++    def add_label(self,text='Change Me', font_size=12, foreground=pango.AttrForeground(6655, 22783, 26367, 0, 50), bold=False):
++        label=gtk.Label(text)
++        plist=pango.AttrList()
++        fg_size=pango.AttrSize(font_size*1000,0,50)
++        fg_color=foreground
++        plist.insert(fg_color)
++        plist.insert(fg_size)
++        if bold:plist.insert(pango.AttrWeight(pango.WEIGHT_HEAVY, 0, -1))
++        label.set_attributes(plist)
++        label.show()
++        return label        
++   
+Index: web2py-1.99.7/gluon/widget.py
+===================================================================
+--- web2py-1.99.7.orig/gluon/widget.py	2012-03-13 10:21:10.000000000 +0100
++++ web2py-1.99.7/gluon/widget.py	2012-03-13 10:23:41.987213834 +0100
+@@ -33,6 +33,12 @@
+ except:
+     pass
+ 
++try:
++    import gtk
++    import gobject
++    import contrib.gtk_presentation
++except:
++    pass
+ 
+ try:
+     BaseException
+@@ -89,9 +95,296 @@
+     print 'starting browser...'
+     try_start_browser('http://%s:%s' % (ip, port))
+ 
++def setup_gtk(*args):
++    
++    
++    
++
++    class web2pyGtkDialog(gtk.Window):
++        """Main gtk window dialog"""
++        def __init__(self,options):
++            
++            super(web2pyGtkDialog, self).__init__()
++            gobject.threads_init()
++            self.options=options
++            httplog = os.path.join(self.options.folder, 'httpserver.log')
++            
++            self.set_title("web2py server")
++            vbox = gtk.VBox(False, 2)
++            
++            # Building the Menu
++            self.menu = gtk.MenuBar()
++
++            servermenu = gtk.Menu()
++            severm = gtk.MenuItem("Server")
++            severm.set_submenu(servermenu)
++           
++            item = lambda(x): try_start_browser(httplog)       
++            log_item = gtk.MenuItem("View httpserver.log")
++            log_item .connect("activate", item)
++            quit_item = gtk.MenuItem("Quit (pid: %i)" % os.getpid())
++            quit_item.connect("activate", self.quit)
++            servermenu.append(log_item)
++            servermenu.append(quit_item) 
++            self.menu.append(severm)
++            
++            self.pagesmenu = gtk.Menu()
++            pagesm = gtk.MenuItem("Pages")
++            pagesm.set_submenu(self.pagesmenu)        
++            self.menu.append(pagesm)
++
++            helpmenu = gtk.Menu()
++            helpm = gtk.MenuItem("Info")
++            helpm.set_submenu(helpmenu)
++            self.menu.append(helpm)
++            
++            # Home Page
++            item = lambda(x): try_start_browser('http://www.web2py.com')
++            home_item= gtk.MenuItem('Home Page')
++            home_item.connect("activate", item)
++     
++            # About
++            about=gtk.AboutDialog()
++            about.set_version(ProgramVersion)
++            about.set_copyright(ProgramAuthor)
++            about.set_program_name(ProgramName)
++            item = lambda(x):  self.about_dialog(about)
++            about_item= gtk.MenuItem('About')
++            about_item.connect("activate", item)     
++            helpmenu.append(home_item)
++            helpmenu.append(about_item) 
++
++            vbox.pack_start(self.menu, False, False, 0)
++
++            table = gtk.Table(3, 2, True)
++            vbox.add(table)
++            # IP
++            ip_label = gtk.Label('Server IP:')
++            ip_label.set_alignment(xalign=0.0, yalign=0.5)
++            self.ip = gtk.Entry()
++            self.ip.set_text(self.options.ip)
++            table.attach(ip_label,0, 1, 0, 1)
++            table.attach(self.ip,1, 2, 0, 1)        
++            ip_label.show()
++            self.ip.show()
++          
++            # Port
++            port_label = gtk.Label('Server Port:')
++            port_label.set_alignment(xalign=0.0, yalign=0.5)
++            self.port_number = gtk.Entry()
++            self.port_number.set_text(str(self.options.port))
++            table.attach(port_label,0, 1, 1, 2)
++            table.attach(self.port_number,1, 2, 1, 2)        
++            port_label.show()
++            self.port_number.show()        
++          
++            # Password
++            passwd_label = gtk.Label('Choose Password:')
++            passwd_label.set_alignment(xalign=0.0, yalign=0.5)
++            self.password  = gtk.Entry()
++            self.password.set_visibility(False)
++            self.password.connect("activate",  lambda e: self.start())
++            table.attach(passwd_label,0, 1, 2, 3)
++            table.attach(self.password ,1, 2, 2, 3)        
++            passwd_label.show()
++            self.password.show()     
++
++            # Prepare the canvas
++            self.canvas = gtk.DrawingArea()
++            self.canvas.set_size_request(300, 101)
++            self.canvas.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse("black"))
++            vbox.add(self.canvas)
++            self.gc = None  # initialized in realize-event handler
++            self.canvas.connect('expose-event',  self.on_expose_event)
++            self.canvas.connect('realize',       self.on_realize)        
++            self.canvas.show()             
++            
++            # Prepare the frame
++            frame = gtk.HButtonBox()
++            vbox.add(frame)
++            frame.show()
++            
++            # Start button
++            start_image=gtk.Image()
++            start_image.set_from_icon_name(gtk.STOCK_EXECUTE,gtk.ICON_SIZE_BUTTON)        
++            self.button_start = gtk.Button(label='start server')
++            self.button_start.set_image(start_image)
++            frame.add(self.button_start)
++            self.button_start.show()
++            self.button_start.connect("clicked", self.start)
++            
++            # Stopt button
++            stop_image=gtk.Image()
++            stop_image.set_from_icon_name(gtk.STOCK_STOP,gtk.ICON_SIZE_BUTTON)
++            self.button_stop = gtk.Button(label='stop server')
++            self.button_stop.set_image(stop_image)
++            self.button_stop.set_sensitive(False)
++            frame.add(self.button_stop)
++            self.button_stop.show()
++            self.button_stop.connect("clicked", self.stop)
++
++            self.add(vbox)
++            table.show()
++            self.password.grab_focus()
++            self.connect("destroy", self.quit)        
++            
++        def about_dialog(self,dialog):
++            dialog.run()
++            dialog.hide()
++
++        def error(self, message):
++            """ Show error message """
++            md = gtk.MessageDialog(self, gtk.DIALOG_DESTROY_WITH_PARENT,
++            gtk.MESSAGE_WARNING, gtk.BUTTONS_CLOSE, message)
++            md.format_secondary_text('web2py start server')
++            md.run()
++            md.destroy()        
++
++        def quit(self, menu_item):
++            """ Finish the program execution """
++
++            try:
++                self.server.stop()
++            except:
++                pass
++
++            gtk.main_quit()
++            sys.exit()
++            
++        def start(self,item=None):
++            """ Start web2py server """
++
++            password = self.password.get_text()
++
++            if not password:
++                self.error('no password, no web admin interface')
++
++            ip = self.ip.get_text()
++
++            regexp = '\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}'
++            if ip and not re.compile(regexp).match(ip):
++                return self.error('invalid host ip address')
++
++            try:
++                port = int(self.port_number.get_text())
++            except:
++                return self.error('invalid port number')
++
++            self.url = 'http://%s:%s' % (ip, port)
++            self.connect_pages()
++            self.button_start.set_sensitive(False)
++
++            try:
++                options = self.options
++                req_queue_size = options.request_queue_size
++                self.server = main.HttpServer(
++                    ip,
++                    port,
++                    password,
++                    pid_filename=options.pid_filename,
++                    log_filename=options.log_filename,
++                    profiler_filename=options.profiler_filename,
++                    ssl_certificate=options.ssl_certificate,
++                    ssl_private_key=options.ssl_private_key,
++                    min_threads=options.minthreads,
++                    max_threads=options.maxthreads,
++                    server_name=options.server_name,
++                    request_queue_size=req_queue_size,
++                    timeout=options.timeout,
++                    shutdown_timeout=options.shutdown_timeout,
++                    path=options.folder,
++                    interfaces=options.interfaces)
++
++                thread.start_new_thread(self.server.start, ())
++            except Exception, e:
++                self.button_start.set_sensitive(True)
++                return self.error(str(e))
++
++            self.button_stop.set_sensitive(True)
++            if not options.taskbar:
++                thread.start_new_thread(start_browser, (ip, port))
++
++            self.password.set_sensitive(False)
++            self.ip.set_sensitive(False)
++            self.port_number.set_sensitive(False)
++            
++            gobject.timeout_add(1000, self.update_canvas)
++            
++        def stop(self,item=None):
++            self.button_stop.set_sensitive(False)
++            self.button_start.set_sensitive(True)
++            self.password.set_sensitive(True)
++            self.ip.set_sensitive(True)
++            self.port_number.set_sensitive(True)
++            self.server.stop()
++            
++        def connect_pages(self):
++            """ Connect pages """
++            def get_label(menu_item):
++                url=menu_item.get_child().get_label()
++                try_start_browser(url)
++                
++            for arq in os.listdir('applications/'):
++                if os.path.exists('applications/%s/__init__.py' % arq):
++                    url = self.url + '/' + arq
++                    start_browser = lambda u =url: get_label(u)
++                    page_item = gtk.MenuItem(url)        
++                    page_item.connect("activate", start_browser)
++                    page_item.show()
++                    self.pagesmenu.append(page_item)
++                    
++                    
++        def update_canvas(self):
++
++            self.queue_draw()
++            gobject.timeout_add(1000, self.update_canvas) 
++            
++        def on_expose_event(self, widget, event):     
++
++            try:
++                t1 = os.path.getsize('httpserver.log')
++
++            except:
++                gobject.timeout_add(1000, self.update_canvas)
++                return
++                
+ 
++            try:
++                fp = open('httpserver.log', 'r')
++                fp.seek(self.t0)
++                data = fp.read(t1 - self.t0)
++                fp.close()
++                value = self.p0[1:] + [10 +int( 90.0 / math.sqrt(1 + data.count('\n')))]
++                self.p0 = value
++                points=[]
++
++                for i in xrange(len(self.p0)-1):
++                    points.append((i,value[i]))
++                
++                self.t0 = t1 
++                widget.window.draw_lines(self.gc, points)
++
++
++            except BaseException:
++                self.t0 = time.time()
++                self.t0 = t1
++                self.p0 = [100] * 320
++
++
++        def on_realize(self, widget):
++            self.gc = widget.window.new_gc()
++            self.gc.set_rgb_fg_color(gtk.gdk.color_parse("green"))
++            self.gc.set_line_attributes(1, gtk.gdk.LINE_SOLID,
++                                        gtk.gdk.CAP_PROJECTING, gtk.gdk.JOIN_MITER)        
++                          
++    
++    options=args[0]
++    mymain=web2pyGtkDialog(options)
++    gobject.timeout_add(5000, mymain.show_all)                        
++  
++  
+ def presentation(root):
+-    """ Draw the splash screen """
++    """ Draw the splash screen Tk"""
+ 
+     root.withdraw()
+ 
+@@ -913,18 +1206,44 @@
+ 
+     if not options.nogui:
+         try:
+-            import Tkinter
+-            havetk = True
+-        except ImportError:
+-            logger.warn('GUI not available because Tk library is not installed')
+-            havetk = False
+-
+-        if options.password == '<ask>' and havetk or options.taskbar and havetk:
++            import gtk
++            import gobject
++            import pango
++            havegtk=True
++            havetk=False
++        except:
++            logger.warn('Trying Tk GUI interface because gtk is not installed')
++            havegtk=False
+             try:
+-                root = Tkinter.Tk()
+-            except:
+-                pass
+-
++                import Tkinter
++                havetk = True
++            except ImportError:
++                logger.warn('GUI not available because neither gtk nor Tk libraries are not installed')
++                havetk = False
++        haveUI=havegtk or havetk
++		
++        splash = None
++        if options.password == '<ask>' and haveUI or options.taskbar and haveUI:
++            if havegtk:
++                splash=contrib.gtk_presentation.Presentation('splashlogo.gif', ProgramName,ProgramAuthor,ProgramVersion)
++            else:
++                try:
++                    root = Tkinter.Tk()
++                except:
++                    pass
++    #if gtk interface:
++    if splash:
++        # ensure it is rendered immediately
++        while gtk.events_pending():
++            gtk.main_iteration()
++
++        gobject.timeout_add(5000, splash.hide) # 5*1000 miliseconds                
++        gobject.idle_add(setup_gtk,options)
++
++        gtk.main()
++        sys.exit()
++        
++    #if tk interface:
+     if root:
+         root.focus_force()
+         if not options.quiet:

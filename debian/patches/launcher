@@ -1,0 +1,129 @@
+Index: web2py-1.99.4/web2py
+===================================================================
+--- /dev/null	1970-01-01 00:00:00.000000000 +0000
++++ web2py-1.99.4/web2py	2011-12-14 19:09:48.018663053 +0100
+@@ -0,0 +1,124 @@
++#!/usr/bin/env python
++# -*- coding: utf-8 -*-
++##############################################################################
++# Module:     web2py
++# Purpose:     web2py launcher for use with Debian web2py package
++# Date:        15-Jan-2011.
++# Ver.:        13-Mar-2011.
++# Author:    José L. Redrejo Rodríguez
++# Copyright: 2011 -  José L. Redrejo Rodríguez <jredrejo @nospam@ debian.org>
++#
++# This program is free software: you can redistribute it and/or modify
++# it under the terms of the GNU General Public License as published by
++# the Free Software Foundation, either version 3 of the License, or
++# (at your option) any later version.
++# 
++# This program is distributed in the hope that it will be useful,
++# but WITHOUT ANY WARRANTY; without even the implied warranty of
++# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++# GNU General Public License for more details.
++# 
++# You should have received a copy of the GNU General Public License
++# along with this program.  If not, see <http://www.gnu.org/licenses/>.
++# 
++##############################################################################
++
++import os
++import sys
++import pwd
++from shutil import copytree
++import tarfile
++import re
++from gzip import open as gzopen
++
++
++def w2p_pack(filename, path):
++    if path[-1:] != '/':
++        path = path + '/' 	
++    tarname = filename + '.tar'
++    tar = tarfile.TarFile(tarname, 'w')
++    tar.add(path,"",True)				 
++    tar.close()        
++    w2pfp = gzopen(filename, 'wb')
++    tarfp = open(tarname, 'rb')
++    w2pfp.write(tarfp.read())
++    w2pfp.close()
++    tarfp.close()
++    os.unlink(tarname)
++
++def create_dir(path):
++	if not os.path.exists(path):
++		try:
++			os.makedirs(path)
++		except:
++			print "Error trying to make %s directory to run web2py" % (path)
++			sys.exit(1)
++		return False
++	else:
++		return True
++
++def copy_skeleton(app_name):
++    new_dir=os.path.join(web2py_applications,app_name)
++    if not create_dir(new_dir):
++        for subfolder in ('controllers', 'languages','models','static','views','private'):
++            folder_path =  os.path.join(new_dir, subfolder)
++            if not os.path.exists(folder_path):
++                original_path=os.path.join(web2py_skeleton,app_name,subfolder)
++                if os.path.exists(original_path):
++					os.symlink(original_path,folder_path)
++        
++        for subfolder in ('databases','modules', 'cron', 'errors', 'sessions',
++                           'private', 'uploads'):
++			try:		
++				os.mkdir(os.path.join(new_dir,subfolder))
++			except:
++				pass #the dir has been previously symlinked
++
++web2py_skeleton="/usr/share/web2py/applications"            
++home_user=pwd.getpwuid(os.getuid())[5]
++current_path = os.getcwd()
++if not os.access(current_path,os.W_OK):
++	current_path=home_user
++
++if current_path == home_user:
++	web2py_dir=os.path.join(home_user,"web2py")
++else:
++	web2py_dir=current_path
++
++create_dir(os.path.join(web2py_dir,"deposit"))	
++web2py_applications=os.path.join(web2py_dir,"applications")
++module_web2py_applications=os.path.join(web2py_applications,'__init__.py')
++
++#Create the applications dirs if required:	
++create_dir(web2py_applications)	
++if not os.path.exists(module_web2py_applications):open(module_web2py_applications, 'w').close() 
++copy_skeleton("welcome")
++copy_skeleton("admin")
++copy_skeleton("examples")
++
++if not os.path.exists(os.path.join(web2py_dir,"welcome.w2p")):
++	w2p_pack(os.path.join(web2py_dir,"welcome.w2p"),os.path.join(web2py_skeleton,"welcome"))
++    
++
++if not "-f" in sys.argv:
++	sys.argv.append("-f")
++	sys.argv.append(web2py_dir)
++
++
++try:
++    path = '/usr/share/web2py'
++    os.chdir(path)
++except NameError:
++    path = os.getcwd() # Seems necessary for py2exe
++    
++try:
++    sys.path.remove(path)
++except ValueError:
++    pass
++sys.path.insert(0, path)
++
++# import gluon.import_all ##### This should be uncommented for py2exe.py
++import gluon.widget
++
++# Start Web2py and Web2py cron service!
++gluon.widget.start(cron=True)

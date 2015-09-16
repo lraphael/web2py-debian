@@ -1,0 +1,60 @@
+Index: web2py-1.99.7/gluon/dal.py
+===================================================================
+--- web2py-1.99.7.orig/gluon/dal.py	2012-03-13 10:12:18.898896088 +0100
++++ web2py-1.99.7/gluon/dal.py	2012-03-13 10:12:23.015023024 +0100
+@@ -1,4 +1,4 @@
+-#!/bin/env python
++#!/usr/bin/env python
+ # -*- coding: utf-8 -*-
+ 
+ """
+Index: web2py-1.99.7/gluon/main.py
+===================================================================
+--- web2py-1.99.7.orig/gluon/main.py	2012-03-13 10:12:18.886895718 +0100
++++ web2py-1.99.7/gluon/main.py	2012-03-13 10:12:23.015023024 +0100
+@@ -1,4 +1,4 @@
+-#!/bin/env python
++#!/usr/bin/env python
+ # -*- coding: utf-8 -*-
+ 
+ """
+Index: web2py-1.99.7/gluon/rewrite.py
+===================================================================
+--- web2py-1.99.7.orig/gluon/rewrite.py	2012-03-13 10:12:18.878895471 +0100
++++ web2py-1.99.7/gluon/rewrite.py	2012-03-13 10:12:23.019023147 +0100
+@@ -1,4 +1,4 @@
+-#!/bin/env python
++#!/usr/bin/env python
+ # -*- coding: utf-8 -*-
+ 
+ """
+Index: web2py-1.99.7/gluon/tools.py
+===================================================================
+--- web2py-1.99.7.orig/gluon/tools.py	2012-03-13 10:12:18.874895348 +0100
++++ web2py-1.99.7/gluon/tools.py	2012-03-13 10:12:23.019023147 +0100
+@@ -1,4 +1,4 @@
+-#!/bin/python
++#!/usr/bin/python
+ # -*- coding: utf-8 -*-
+ 
+ """
+Index: web2py-1.99.7/gluon/validators.py
+===================================================================
+--- web2py-1.99.7.orig/gluon/validators.py	2012-03-13 10:12:18.890895842 +0100
++++ web2py-1.99.7/gluon/validators.py	2012-03-13 10:12:23.019023147 +0100
+@@ -1,4 +1,4 @@
+-#!/bin/env python
++#!/usr/bin/env python
+ # -*- coding: utf-8 -*-
+ 
+ """
+Index: web2py-1.99.7/gluon/tests/test_html.py
+===================================================================
+--- web2py-1.99.7.orig/gluon/tests/test_html.py	2012-03-13 10:12:48.563809623 +0100
++++ web2py-1.99.7/gluon/tests/test_html.py	2012-03-13 10:13:36.925292552 +0100
+@@ -1,4 +1,4 @@
+-#!/bin/python
++#!/usr/bin/env python
+ # -*- coding: utf-8 -*-
+ 
+ """

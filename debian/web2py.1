@@ -1,0 +1,133 @@
+.TH "web2py" "1" "January 30, 2011" "Debian" "User Commands"
+.SH "NAME"
+web2py \- web2py Web Framework server launcher
+.SH "SYNOPSIS"
+.B web2py
+.RI [ options ] 
+
+.SH "DESCRIPTION"
+\fBweb2py\fP is a the startup script to launch web2py server running applications located the current directory. If the user has not write permissions on this directory, web2py will server applications located at ~/web2py
+
+\fBATTENTION:\fP unless \fB\-\-nogui\fP option or a password is specified
+(\fB\-a\fP "passwd") web2py will attempt to run a GUI. In this case command line options are ignored.
+.SH "OPTIONS"
+These programs follow the usual GNU command line syntax, with long
+options starting with two dashes (`\-').
+A summary of options is included below.
+For a complete description, see the Info files.
+.TP 
+.B \-\-version
+Show version of program and exit.
+.TP 
+.B \-h, \-\-help
+Show summary of options and exit.
+.TP 
+.B \-i IP, \-\-ip=IP
+Ip address of the server (defaults: 127.0.0.1)
+.TP 
+.B \-p PORT, \-\-port=PORT
+Port of server (defaults:8000)
+.TP 
+.B \-a PASSWORD, \-\-password=PASSWORD
+Password to be used for administration (use \-a "<recycle>" to reuse the last password))
+.TP 
+.B \-c SSL_CERTIFICATE, \-\-ssl_certificate=SSL_CERTIFICATE
+File that contains ssl certificate
+.TP 
+.B \-k SSL_PRIVATE_KEY, \-\-ssl_private_key=SSL_PRIVATE_KEY
+File that contains ssl private key
+.TP 
+.B \-d PID_FILENAME, \-\-pid_filename=PID_FILENAME
+File to store the pid of the server
+.TP 
+.B \-l LOG_FILENAME, \-\-log_filename=LOG_FILENAME
+File to log connections
+.TP 
+.B \-n NUMTHREADS, \-\-numthreads=NUMTHREADS
+Number of threads (deprecated)
+.TP 
+.B \-\-minthreads=MINTHREADS
+Minimum number of server threads
+.TP 
+.B \-\-maxthreads=MAXTHREADS
+Maximum number of server threads
+.TP 
+.B \-s SERVER_NAME, \-\-server_name=SERVER_NAME
+Server name for the web server
+.TP 
+.B \-q REQUEST_QUEUE_SIZE, \-\-request_queue_size=REQUEST_QUEUE_SIZE
+Max number of queued requests when server unavailable
+.TP 
+.B \-o TIMEOUT, \-\-timeout=TIMEOUT
+Timeout for individual request (Defaults: 10 seconds)
+.TP 
+.B \-z SHUTDOWN_TIMEOUT, \-\-shutdown_timeout=SHUTDOWN_TIMEOUT
+Timeout on shutdown of server (Defaults: 5 seconds)
+.TP 
+.B \-f FOLDER, \-\-folder=FOLDER
+Folder from which to run web2py
+.TP 
+.B \-v, \-\-verbose
+Increase \-\-test verbosity
+.TP 
+.B \-Q, \-\-quiet
+Disable all output
+.TP 
+.B \-D DEBUGLEVEL, \-\-debug=DEBUGLEVEL
+Set debug output level (0\-100, 0 means all, 100 means none; default is 30)
+.TP 
+.B \-S APPNAME, \-\-shell=APPNAME
+Run web2py in interactive shell or IPython (if installed) with specified appname (if app does not exist it will be created).
+.TP 
+.B \-P, \-\-plain
+Only use plain python shell; should be used with \fB\-\-shell\fP option
+.TP 
+.B \-M, \-\-import_models
+Auto import model files; default is False; should be used with \fB\-\-shell\fP option
+.TP 
+.B \-R PYTHON_FILE, \-\-run=PYTHON_FILE
+Run PYTHON_FILE in web2py environment; should be used with \fB\-\-shell\fP option
+.TP 
+.B \-T TEST_PATH, \-\-test=TEST_PATH
+Run doctests in web2py environment; TEST_PATH like a/c/f (c,f optional)
+.TP 
+.B \-C, \-\-cron
+Trigger a cron run manually; usually invoked from a system crontab
+.TP 
+.B \-\-softcron
+Triggers the use of softcron
+.TP 
+.B \-N, \-\-no\-cron
+Do not start cron automatically
+.TP 
+.B \-J, \-\-cronjob
+Identify cron\-initiated command
+.TP 
+.B \-L CONFIG, \-\-config=CONFIG
+Config file
+.TP 
+.B \-F PROFILER_FILENAME, \-\-profiler=PROFILER_FILENAME
+Profiler filename
+.TP 
+.B \-\-nogui
+Text\-only, no GUI
+.TP 
+.B \-A ARGS, \-\-args=ARGS
+Should be followed by a list of arguments to be passed to script, to be used with \fB\-S\fP, \fB\-A\fP must be the last option
+.TP 
+.B \-\-interfaces=INTERFACES
+Allows multiple interfaces to be served
+
+.br 
+.SH "AVAILABILITY"
+The latest version of web2py can always be obtained from
+\fBhttp://www.web2py.com/examples/default/download\fR 
+.SH "DOCUMENTATION"
+The Official web2py book is available at 
+\fBhttp://www.web2py.com/book\fR 
+
+.SH "AUTHOR"
+web2py was written by Massimo Di Pierro <mdipierro@cs.depaul.edu>>.
+.PP 
+This manual page was written by José L. Redrejo Rodríguez <jredrejo@debian.org>,
+for the Debian project (and may be used by others).

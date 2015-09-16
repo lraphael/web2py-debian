@@ -1,0 +1,55 @@
+web2py for Debian
+-----------------
+
+The documentation directory contains examples:  
+/usr/share/doc/python-web2py/examples of configuration files to
+deploy Web2py applications when using different servers or environment.
+The Web2py documentation contains the recipes showing how to use these
+configuration files: http://web2py.com/book/default/chapter/11
+
+
+Apache2 configuration for web2py
+-------------------------------
+
+To use Apache2 to serve web2py sites, these packages must be installed:
+apache2-server libapache2-mod-wsgi libapache2-mod-python
+
+Two Apache2 configuration files are provided at /usr/share/doc/python-gluon/examples/
+web2py.apache and web2py.apache-subdir.
+The former allows one to configure a new site running web2py, and the later
+is to add a web2py application as a subdir of a running apache server.
+
+To use these files:
+
+If using web2py.apache:
+    - Add the file /usr/share/doc/python-gluon/examples/wsgihandler.py 
+    to the directory where your web2py application dir is located.
+    - Replace all the entries of "my_app_name" in web2py.apache by your
+    web2py application name.    
+    - Replace all the entries of "/path/to/myweb2py/" in web2py.apache 
+    by the path to the directory where web2py applications are installed.
+    - Ensure this directory is owned by www-data to be able to write
+    the caches and uploaded files when needed.
+    - Move web2py.apache to /etc/apache2/sites-available/web2py
+    - Execute "a2site web2py" and restart apache
+    
+If using web2py.apache-subdir:
+    - Add the file /usr/share/doc/python-gluon/examples/subwsgihandler.py 
+    to the directory where your web2py application dir is located.
+    - Replace all the entries of "my_sub_dir" in web2py.apache-subdir by
+    the name of the apache subdirectory you desire to use.
+    - Replace all the entries of "/path/to/myweb2py/" in 
+    web2py.apache-subdir by the path to the directory where web2py 
+    applications are installed. 
+    - Ensure this directory is owned by www-data to be able to write
+    the caches and uploaded files when needed.
+    - Add the contents of the modified web2py.apache-subdir to the right 
+    site file at /etc/apache2/sites-available/ and restart apache    
+
+
+
+In order to make Debian packages for web2py applications, the current
+policy to package web applications must be followed. See 
+http://webapps-common.alioth.debian.org/draft/html/
+
+ -- José L. Redrejo Rodríguez <jredrejo@debian.org>  Sun, 30 Jan 2011 10:32:55 +0000

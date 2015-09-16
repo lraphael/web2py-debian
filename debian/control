@@ -1,0 +1,42 @@
+Source: web2py
+Section: python
+Priority: optional
+Maintainer: José L. Redrejo Rodríguez <jredrejo@debian.org>
+Uploaders: Debian Python Modules Team <python-modules-team@lists.alioth.debian.org>
+Build-Depends: debhelper (>= 7.0.50~), dh-python, python (>= 2.5)
+Build-Depends-Indep: libjs-jquery, python-feedparser
+Standards-Version: 3.9.3
+Homepage: http://www.web2py.com
+Vcs-Svn: svn://anonscm.debian.org/python-modules/packages/web2py/trunk/
+Vcs-Browser: http://anonscm.debian.org/viewvc/python-modules/packages/web2py/trunk/
+
+Package: python-web2py
+Architecture: all
+Depends: ${misc:Depends}, ${python:Depends}, python-gluon
+Recommends: libjs-jquery, python-gtk2 | python-tk
+Description: High-level Python web development framework
+ web2py is a free, open-source web framework for agile development of
+ secure database-driven web applications; it is written in Python and
+ programmable in Python. Web2py is a full-stack framework, meaning that
+ it contains all the components you need to build fully functional web
+ applications. Web2py was inspired by Ruby on Rails and Django, and 
+ follows a Model View Controller design.
+ .
+ This package includes an example site, an internal web server and the 
+ administration tools to develop web sites with web2py.
+ 
+Package: python-gluon
+Architecture: all
+Depends: ${misc:Depends}, ${python:Depends}
+Recommends: python-feedparser
+Suggests: memcached
+Description: High-level Python web development framework
+ web2py is a free, open-source web framework for agile development of
+ secure database-driven web applications; it is written in Python and
+ programmable in Python. Web2py is a full-stack framework, meaning that
+ it contains all the components you need to build fully functional web
+ applications. Web2py was inspired by Ruby on Rails and Django, and 
+ follows a Model View Controller design.
+ .
+ This package include the python modules needed to run web applications 
+ developed with Web2py
