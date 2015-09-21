@@ -3,7 +3,7 @@ This is a helper script to download and create a web2py debian package with the 
 
 ## Install required packages
 ```sh
-apt-get install build-essential dpkg-dev git
+apt-get install build-essential dpkg-dev git debhelper dh-python libjs-jquery python-feedparser
 ```
 
 ## Checkout and create package
