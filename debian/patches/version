@@ -9,3 +9,14 @@
      raw_version_string = version_info.read().split()[-1].strip()
      version_info.close()
      global_settings.web2py_version = raw_version_string
+--- a/gluon/widget.py
++++ b/gluon/widget.py
+@@ -41,7 +41,7 @@
+ ProgramName = 'web2py Web Framework'
+ ProgramAuthor = 'Created by Massimo Di Pierro, Copyright 2007-' + str(
+     datetime.datetime.now().year)
+-ProgramVersion = read_file('VERSION').strip()
++ProgramVersion = open('/usr/share/web2py/VERSION', 'r')
+ 
+ ProgramInfo = '''%s
+                  %s
