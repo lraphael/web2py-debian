@@ -16,7 +16,7 @@
  ProgramAuthor = 'Created by Massimo Di Pierro, Copyright 2007-' + str(
      datetime.datetime.now().year)
 -ProgramVersion = read_file('VERSION').strip()
-+ProgramVersion = open('/usr/share/web2py/VERSION', 'r')
++ProgramVersion = read_file('/usr/share/web2py/VERSION').strip()
  
  ProgramInfo = '''%s
                   %s
